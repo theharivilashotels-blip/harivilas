@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "The Hari Vilas Hotel" },
       { property: "og:site_name", content: "The Hari Vilas Hotel" },
-      { property: "og:title", content: "The Hari Vilas Hotel — Royal Heritage Luxury" },
+      { property: "og:title", content: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
       {
         property: "og:description",
         content: "A 5-star heritage retreat in Udaipur. Regal suites, palace dining, spa and weddings.",
@@ -88,6 +88,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
+      { name: "description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
+      { property: "og:description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
+      { name: "twitter:description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9fadf60-5cb4-45db-8f04-7f19566c6884/id-preview-c2cdf1e7--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783431154791.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9fadf60-5cb4-45db-8f04-7f19566c6884/id-preview-c2cdf1e7--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783431154791.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
