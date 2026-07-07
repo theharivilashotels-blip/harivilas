@@ -287,20 +287,24 @@ function WhyUs() {
           <h2 className="mt-3 font-serif text-4xl text-ivory md:text-5xl">A legacy, still writing itself</h2>
         </div>
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
-          {stats.map((s) => {
-            const v = useCounter(s.n, visible);
-            return (
-              <div key={s.label} className="text-center">
-                <p className="text-gold-shimmer font-serif text-5xl md:text-6xl">
-                  {v.toLocaleString()}{s.n >= 1000 && v === s.n ? "+" : ""}
-                </p>
-                <p className="mt-3 text-xs uppercase tracking-[0.25em] text-ivory/70">{s.label}</p>
-              </div>
-            );
-          })}
+          {stats.map((s) => (
+            <StatCounter key={s.label} target={s.n} label={s.label} start={visible} />
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function StatCounter({ target, label, start }: { target: number; label: string; start: boolean }) {
+  const v = useCounter(target, start);
+  return (
+    <div className="text-center">
+      <p className="text-gold-shimmer font-serif text-5xl md:text-6xl">
+        {v.toLocaleString()}{target >= 1000 && v === target ? "+" : ""}
+      </p>
+      <p className="mt-3 text-xs uppercase tracking-[0.25em] text-ivory/70">{label}</p>
+    </div>
   );
 }
 
