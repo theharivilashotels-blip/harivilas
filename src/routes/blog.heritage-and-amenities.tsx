@@ -24,7 +24,7 @@ function Page() {
     <article className="mx-auto max-w-3xl px-5 pb-24 pt-32 sm:px-6 md:px-8">
       <p className="text-xs uppercase tracking-[0.4em] text-gold">Our Story</p>
       <h1 className="mt-3 font-serif text-3xl text-foreground sm:text-4xl md:text-5xl">
-        Hari Vilas Sri Ganganagar: Our Heritage & Amenities
+        Hari Vilas Hotel Sri Ganganagar: Our Heritage & Amenities
       </h1>
       <p className="mt-5 text-muted-foreground">
         Hari Vilas Hotel is a warm, family-run boutique hotel in the old city of Sri Ganganagar. Sixteen rooms, four categories, one goal — real comfort at fair prices.
