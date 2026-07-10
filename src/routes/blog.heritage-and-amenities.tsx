@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 const url = "https://harivilas.lovable.app/blog/heritage-and-amenities";
-const title = "Hari Vilas Sri Ganganagar: Our Heritage and Amenities";
+const title = "Hari Vilas Hotel Sri Ganganagar: Our Heritage and Amenities";
 const description = "The story of Hari Vilas Hotel in Sri Ganganagar and the amenities that make our stay special — Wi-Fi, parking, spotless rooms, couple friendly service and more.";
 
 export const Route = createFileRoute("/blog/heritage-and-amenities")({
