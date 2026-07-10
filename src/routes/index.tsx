@@ -122,41 +122,69 @@ function Home() {
 
 function Hero({ onBook }: { onBook: () => void }) {
   const [loaded, setLoaded] = useState(false);
+  const words = ["The", "Hari", "Vilas", "Hotel"];
   return (
-    <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+    <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-maroon-deep">
+      {/* Blurred backdrop so portrait hero image fills any screen elegantly */}
+      <img
+        src={HERO_IMAGE}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+      />
       <img
         src={heroFallback}
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover opacity-0"
       />
       <img
         src={HERO_IMAGE}
         alt="The Hari Vilas Hotel — luxury stay in Sri Ganganagar, Rajasthan"
         onLoad={() => setLoaded(true)}
-        className={`hero-zoom absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
+        className={`hero-zoom absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-[1400ms] md:object-cover md:object-top ${loaded ? "opacity-100" : "opacity-0"}`}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/40 via-maroon-deep/25 to-maroon-deep/85" />
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-5 text-center">
-        <p className="fade-up mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-gold-soft sm:text-[11px] sm:tracking-[0.5em]">
+      <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/50 via-maroon-deep/20 to-maroon-deep/90" />
+
+      {/* Curtain reveal veil */}
+      <div className="hero-veil pointer-events-none absolute inset-0 z-20 bg-maroon-deep" style={{ animationDelay: "100ms" }} />
+
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-end px-5 pb-16 text-center md:justify-center md:pb-0">
+        <p className="fade-up mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-gold-soft sm:text-[11px] sm:tracking-[0.5em]" style={{ animationDelay: "1200ms" }}>
           <span className="h-px w-8 bg-gold sm:w-10" /> Sri Ganganagar, Rajasthan <span className="h-px w-8 bg-gold sm:w-10" />
         </p>
-        <h1
-          className="fade-up font-serif text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl lg:text-8xl"
-          style={{ animationDelay: "150ms" }}
-        >
-          Hari Vilas Hotel
-          <span className="mt-2 block font-serif text-lg italic text-gold-soft sm:text-xl md:text-2xl">
+
+        <h1 className="font-serif text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl lg:text-8xl">
+          <span className="flex flex-wrap justify-center gap-x-3 gap-y-1 md:gap-x-5">
+            {words.map((w, i) => (
+              <span
+                key={w + i}
+                className="hero-word"
+                style={{ animationDelay: `${1400 + i * 180}ms` }}
+              >
+                {w}
+              </span>
+            ))}
+          </span>
+          <span
+            className="hero-line mx-auto mt-5 block h-px w-24 bg-gold sm:w-32"
+            style={{ animationDelay: "2200ms" }}
+          />
+          <span
+            className="fade-up mt-5 block font-serif text-lg italic text-gold-soft sm:text-xl md:text-2xl"
+            style={{ animationDelay: "2400ms" }}
+          >
             Luxury Stay in Sri Ganganagar
           </span>
         </h1>
+
         <p
           className="fade-up mt-6 max-w-xl text-sm text-ivory/85 sm:text-base md:text-lg"
-          style={{ animationDelay: "300ms" }}
+          style={{ animationDelay: "2600ms" }}
         >
           A warm, couple-friendly boutique hotel in the heart of Sri Ganganagar — sixteen thoughtfully designed rooms, sincere hospitality and every comfort you deserve.
         </p>
-        <div className="fade-up mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10" style={{ animationDelay: "450ms" }}>
+        <div className="fade-up mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10" style={{ animationDelay: "2800ms" }}>
           <button
             onClick={onBook}
             className="btn-gold rounded-sm px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em]"
