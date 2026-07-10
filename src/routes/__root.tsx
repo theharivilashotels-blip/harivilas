@@ -127,7 +127,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
-        <Navbar onBook={scrollToTop} />
+        <Navbar onBook={openBooking} />
         <main className="flex-1">
           <Outlet />
         </main>
