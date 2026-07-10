@@ -47,7 +47,7 @@ const rooms = [
   },
   {
     id: "standard",
-    name: "Standard Room",
+    name: "Premium Room",
     price: 1150,
     desc: "Clean, comfortable and value-for-money. Everything you need for a great night's sleep.",
     images: [
