@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  Wifi, Car, Sparkles, Star, MapPin, ArrowRight, Quote, ArrowLeft,
+  Wifi, Sparkles, Star, MapPin, ArrowRight, Quote,
   ChevronLeft, ChevronRight, Coffee, Heart, ShieldCheck, ParkingCircle,
   BedDouble, Utensils,
 } from "lucide-react";
