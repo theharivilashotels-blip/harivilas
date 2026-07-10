@@ -92,7 +92,7 @@ export function BookingModal({ open, room, price, onClose }: BookingModalProps) 
               </span>
               <h3 className="mt-5 font-serif text-2xl text-foreground">Your booking is confirmed</h3>
               <p className="mt-3 text-sm text-muted-foreground">
-                Thank you, {name || "guest"}. We will call you in a minute to finalise your stay at The Hari Vilas.
+                Thank you, {name || "guest"}. We will call you in a minute to finalise your stay at The Hari Vilas Hotel.
               </p>
               <button
                 onClick={onClose}
