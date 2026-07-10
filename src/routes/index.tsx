@@ -1,116 +1,175 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Waves, Utensils, Sparkles, Wifi, Car, Dumbbell,
-  Star, MapPin, ArrowRight, Quote,
+  Wifi, Sparkles, Star, MapPin, ArrowRight, Quote,
+  ChevronLeft, ChevronRight, Coffee, Heart, ShieldCheck, ParkingCircle,
+  BedDouble, Utensils,
 } from "lucide-react";
-import heroExterior from "../assets/hero-exterior.jpg";
-import roomMaharaja from "../assets/room-maharaja.jpg";
-import roomDeluxe from "../assets/room-deluxe.jpg";
-import roomPoolVilla from "../assets/room-pool-villa.jpg";
-import dining from "../assets/dining.jpg";
-import spa from "../assets/spa.jpg";
-import pool from "../assets/pool.jpg";
-import wedding from "../assets/wedding.jpg";
-import { BookingWidget } from "../components/site/BookingWidget";
+import { BookingModal } from "../components/site/BookingModal";
+import heroFallback from "../assets/hero-exterior.jpg";
+import suite1 from "../assets/suite-1.jpg";
+import suite2 from "../assets/suite-2.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
-      {
-        name: "description",
-        content:
-          "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences.",
-      },
-    ],
-  }),
-  component: Home,
-});
+const HERO_IMAGE = "https://i.ibb.co/Hp9WzDBz/1706-B468-C9-FA-40-B8-B369-B6684-E47-D5-AE.png";
 
 const rooms = [
-  { name: "Deluxe Heritage Room", img: roomDeluxe, size: "42 m²", bed: "King Bed", price: 14500, desc: "Warm arches, marble floors and a private balcony above the courtyard." },
-  { name: "Maharaja Suite", img: roomMaharaja, size: "78 m²", bed: "Canopy King", price: 32000, desc: "A canopy of ivory silk, hand-painted ceilings and a personal butler." },
-  { name: "Private Pool Villa", img: roomPoolVilla, size: "120 m²", bed: "Four-Poster King", price: 58000, desc: "A plunge pool at the edge of the terrace, watched over by sandstone columns." },
+  {
+    id: "deluxe",
+    name: "Deluxe Room",
+    price: 1350,
+    desc: "Warm, spacious and beautifully finished. The perfect everyday luxury for solo travellers and couples.",
+    images: [
+      "https://i.ibb.co/DPFSDdBD/IMG-4544.jpg",
+      "https://i.ibb.co/LXTZxnxL/IMG-4540.jpg",
+    ],
+    features: ["King bed", "AC", "Free Wi-Fi", "24×7 room service"],
+  },
+  {
+    id: "premium",
+    name: "Premium Room",
+    price: 1550,
+    desc: "Upgraded comfort, elegant décor and thoughtful touches for a truly restful stay.",
+    images: [
+      "https://i.ibb.co/MxFPdDD8/IMG-4535.jpg",
+      "https://i.ibb.co/kVhD79bb/IMG-4536.jpg",
+      "https://i.ibb.co/tGsjkNH/IMG-4598.jpg",
+    ],
+    features: ["Premium bedding", "Work desk", "Complimentary breakfast", "Free Wi-Fi"],
+  },
+  {
+    id: "suite",
+    name: "Suite Room",
+    price: 3150,
+    desc: "Our most spacious room — a private living area, king bed and premium amenities. Ideal for couples and special occasions.",
+    images: [suite1, suite2],
+    features: ["Separate living area", "King bed", "Couple friendly", "Late checkout"],
+  },
+  {
+    id: "standard",
+    name: "Standard Room",
+    price: 1150,
+    desc: "Clean, comfortable and value-for-money. Everything you need for a great night's sleep.",
+    images: [
+      "https://i.ibb.co/dsW6qzhk/IMG-4594.jpg",
+      "https://i.ibb.co/sJMQ7rpz/IMG-4595.jpg",
+    ],
+    features: ["Queen bed", "AC", "Free Wi-Fi", "TV"],
+  },
 ];
 
 const amenities = [
-  { icon: Waves, label: "Palace Pool" },
-  { icon: Sparkles, label: "Vilas Spa" },
-  { icon: Utensils, label: "Fine Dining" },
-  { icon: Dumbbell, label: "Wellness Studio" },
   { icon: Wifi, label: "High-Speed Wi-Fi" },
-  { icon: Car, label: "Chauffeur Service" },
+  { icon: ParkingCircle, label: "Free Parking" },
+  { icon: Sparkles, label: "Spotlessly Clean" },
+  { icon: BedDouble, label: "Premium Rooms" },
+  { icon: ArrowRight, label: "High-Speed Lift" },
+  { icon: Coffee, label: "Complimentary Breakfast" },
+  { icon: Utensils, label: "In-house Restaurant" },
+  { icon: ShieldCheck, label: "24×7 Security" },
 ];
 
 const testimonials = [
-  { name: "Aditi & Rohan Mehra", city: "Mumbai", stars: 5, quote: "A dream. From the marigold welcome to the moonlit dinner in the courtyard, every moment felt cinematic." },
-  { name: "James Whitfield", city: "London", stars: 5, quote: "The most soulful hotel I've stayed in. Staff remember your name, your tea, your story." },
-  { name: "Sofía Álvarez", city: "Madrid", stars: 5, quote: "Design, service, food — all in perfect harmony. We're already planning our return." },
+  { name: "Aditi & Rohan Mehra", city: "Delhi", stars: 5, quote: "A wonderful couple-friendly stay in Sri Ganganagar. The Suite Room was beautiful and the staff treated us so warmly." },
+  { name: "Vikram Choudhary", city: "Jaipur", stars: 5, quote: "Cleanest hotel I've stayed at in the city. Comfortable bed, great Wi-Fi and free parking right at the door." },
+  { name: "Neha Sharma", city: "Chandigarh", stars: 5, quote: "The Premium Room was worth every rupee. Loved the food and the polite staff. Will definitely come again." },
+  { name: "Arjun Verma", city: "Bikaner", stars: 5, quote: "Perfect location near the old city. Booked the Deluxe Room — spotless and quiet. Highly recommended." },
+  { name: "Priya Iyer", city: "Mumbai", stars: 5, quote: "The couple-friendly service made our anniversary special. Rooms are elegant and the hotel is well maintained." },
 ];
 
 function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState<{ name: string; price: number } | undefined>();
+
+  function openBooking(room?: { name: string; price: number }) {
+    setSelectedRoom(room);
+    setModalOpen(true);
+  }
+
+  useEffect(() => {
+    const h = () => openBooking();
+    window.addEventListener("hv:book", h);
+    return () => window.removeEventListener("hv:book", h);
+  }, []);
+
+
   return (
     <>
-      <Hero />
-      <div className="relative mx-auto max-w-6xl px-6 md:px-8">
-        <BookingWidget floating />
-      </div>
-      <Welcome />
-      <FeaturedRooms />
+      <Hero onBook={() => openBooking()} />
+      <Welcome onBook={() => openBooking()} />
+      <FeaturedRooms onBook={openBooking} />
       <Amenities />
-      <WhyUs />
-      <Experiences />
+      <CoupleFriendly onBook={() => openBooking({ name: "Suite Room", price: 3150 })} />
+      <Stats />
       <Testimonials />
-      <GalleryStrip />
-      <OffersPreview />
-      <LocationCta />
+      <Location />
+      <BookingModal
+        open={modalOpen}
+        room={selectedRoom?.name}
+        price={selectedRoom?.price}
+        onClose={() => setModalOpen(false)}
+      />
+      {/* Floating book button - mobile */}
+      <button
+        onClick={() => openBooking()}
+        className="btn-gold fixed bottom-4 right-4 z-40 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] shadow-luxe md:hidden"
+      >
+        Book Now
+      </button>
     </>
   );
 }
 
-function Hero() {
+function Hero({ onBook }: { onBook: () => void }) {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+    <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
       <img
-        src={heroExterior}
-        alt="The Hari Vilas palace at twilight"
-        className="hero-zoom absolute inset-0 h-full w-full object-cover"
-        width={1920}
-        height={1200}
+        src={heroFallback}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/50 via-maroon-deep/30 to-maroon-deep/85" />
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 text-center">
-        <p className="fade-up mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.5em] text-gold-soft">
-          <span className="h-px w-10 bg-gold" /> Udaipur, Rajasthan <span className="h-px w-10 bg-gold" />
+      <img
+        src={HERO_IMAGE}
+        alt="The Hari Vilas Hotel — luxury stay in Sri Ganganagar, Rajasthan"
+        onLoad={() => setLoaded(true)}
+        className={`hero-zoom absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/40 via-maroon-deep/25 to-maroon-deep/85" />
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-5 text-center">
+        <p className="fade-up mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-gold-soft sm:text-[11px] sm:tracking-[0.5em]">
+          <span className="h-px w-8 bg-gold sm:w-10" /> Sri Ganganagar, Rajasthan <span className="h-px w-8 bg-gold sm:w-10" />
         </p>
         <h1
-          className="fade-up font-serif text-5xl leading-[1.05] text-ivory md:text-7xl lg:text-8xl"
+          className="fade-up font-serif text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl lg:text-8xl"
           style={{ animationDelay: "150ms" }}
         >
-          The Hari Vilas
+          Hari Vilas Hotel
+          <span className="mt-2 block font-serif text-lg italic text-gold-soft sm:text-xl md:text-2xl">
+            Luxury Stay in Sri Ganganagar
+          </span>
         </h1>
         <p
-          className="fade-up mt-6 max-w-xl text-base text-ivory/85 md:text-lg"
+          className="fade-up mt-6 max-w-xl text-sm text-ivory/85 sm:text-base md:text-lg"
           style={{ animationDelay: "300ms" }}
         >
-          A living palace where royal Indian hospitality meets timeless modern luxury. Your escape begins the moment you arrive.
+          A warm, couple-friendly boutique hotel in the heart of Sri Ganganagar — sixteen thoughtfully designed rooms, sincere hospitality and every comfort you deserve.
         </p>
-        <div className="fade-up mt-10 flex flex-wrap items-center justify-center gap-4" style={{ animationDelay: "450ms" }}>
+        <div className="fade-up mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10" style={{ animationDelay: "450ms" }}>
+          <button
+            onClick={onBook}
+            className="btn-gold rounded-sm px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em]"
+          >
+            Book Now
+          </button>
           <a
             href="#rooms"
-            className="btn-gold rounded-sm px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em]"
+            className="rounded-sm border border-ivory/40 px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-ivory transition hover:border-gold hover:text-gold"
           >
-            Discover the Suites
+            View Rooms
           </a>
-          <Link
-            to="/about"
-            className="rounded-sm border border-ivory/40 px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-ivory transition hover:border-gold hover:text-gold"
-          >
-            Our Story
-          </Link>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-ivory/60">
+        <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-ivory/60 sm:block">
           <div className="mx-auto h-10 w-px animate-pulse bg-gold/70" />
           <p className="mt-2 text-[10px] uppercase tracking-[0.4em]">Scroll</p>
         </div>
@@ -119,41 +178,45 @@ function Hero() {
   );
 }
 
-function Welcome() {
+function Welcome({ onBook }: { onBook: () => void }) {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
-      <div className="grid gap-14 md:grid-cols-2 md:items-center">
+    <section className="mx-auto max-w-6xl px-5 py-20 sm:px-6 md:px-8 md:py-28">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-14">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-gold">Welcome</p>
-          <h2 className="mt-4 font-serif text-4xl leading-tight text-foreground md:text-5xl">
-            A palace with a heartbeat.
+          <h2 className="mt-4 font-serif text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
+            A warm hotel in Sri Ganganagar, made for real comfort.
           </h2>
           <div className="divider-motif my-6 max-w-[10rem] justify-start"><span>◆</span></div>
           <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-            Carved from Rajasthani sandstone in 1897 and reborn as a private retreat, The Hari Vilas holds
-            the hush of royal courtyards and the warmth of an old friend's home. Ninety-two rooms and suites,
-            three restaurants, one legendary spa — and a staff who will remember your tea before you do.
+            Hari Vilas Hotel is a proudly couple-friendly boutique hotel in Sri Ganganagar. Sixteen elegantly appointed rooms, a warm and respectful team, high-speed Wi-Fi, free parking and a spotlessly clean environment — everything you need for a wonderful stay near Gole Bazaar, the railway station and Fort Rajwada.
           </p>
-          <div className="mt-8 flex flex-wrap gap-6">
-            <Fact k="128" v="Years of legacy" />
-            <Fact k="92" v="Rooms & suites" />
+          <div className="mt-8 flex flex-wrap gap-8">
+            <Fact k="16" v="Rooms" />
+            <Fact k="1000+" v="Happy guests" />
             <Fact k="4.9" v="Guest rating" />
           </div>
+          <button
+            onClick={onBook}
+            className="btn-gold mt-8 inline-flex rounded-sm px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em]"
+          >
+            Book your stay
+          </button>
         </div>
         <div className="relative">
-          <div className="aspect-[4/5] w-full overflow-hidden rounded-sm">
+          <div className="aspect-[4/5] w-full overflow-hidden rounded-sm bg-secondary">
             <img
-              src={roomMaharaja}
-              alt="Maharaja suite interior"
+              src={suite1}
+              alt="Elegant suite room at Hari Vilas Hotel Sri Ganganagar"
               loading="lazy"
-              width={1400}
-              height={1000}
+              width={1600}
+              height={2000}
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="absolute -bottom-6 -left-6 hidden rounded-sm border border-gold bg-background p-5 shadow-luxe md:block">
-            <p className="font-serif text-2xl text-maroon">Est. 1897</p>
-            <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Heritage grade I</p>
+          <div className="absolute -bottom-5 -left-3 rounded-sm border border-gold bg-background p-4 shadow-luxe sm:-left-6 sm:p-5">
+            <p className="font-serif text-xl text-maroon sm:text-2xl">Couple Friendly</p>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:text-xs">Sri Ganganagar</p>
           </div>
         </div>
       </div>
@@ -170,50 +233,20 @@ function Fact({ k, v }: { k: string; v: string }) {
   );
 }
 
-function FeaturedRooms() {
+function FeaturedRooms({ onBook }: { onBook: (r: { name: string; price: number }) => void }) {
   return (
-    <section id="rooms" className="bg-secondary/40 py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-8">
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-gold">Rooms & Suites</p>
-            <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">Chambers fit for royalty</h2>
-          </div>
-          <Link to="/rooms" className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-maroon">
-            All accommodations <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
+    <section id="rooms" className="bg-secondary/40 py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-8">
+        <div className="mb-12 text-center md:mb-14">
+          <p className="text-xs uppercase tracking-[0.4em] text-gold">Rooms</p>
+          <h2 className="mt-3 font-serif text-3xl text-foreground sm:text-4xl md:text-5xl">Our four room categories</h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground md:text-base">
+            From value-conscious Standard rooms to our spacious Suite — every room is spotlessly clean, air-conditioned and thoughtfully designed.
+          </p>
         </div>
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
           {rooms.map((r) => (
-            <article key={r.name} className="group overflow-hidden rounded-sm border border-border bg-card transition duration-500 hover:-translate-y-1 hover:shadow-luxe">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={r.img}
-                  alt={r.name}
-                  loading="lazy"
-                  width={1400}
-                  height={1000}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-gold">{r.size} · {r.bed}</p>
-                <h3 className="mt-3 font-serif text-2xl text-foreground">{r.name}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
-                <div className="mt-6 flex items-end justify-between">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">From</p>
-                    <p className="font-serif text-2xl text-maroon">₹{r.price.toLocaleString()}<span className="text-sm text-muted-foreground"> / night</span></p>
-                  </div>
-                  <Link
-                    to="/rooms"
-                    className="rounded-sm border border-maroon px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-maroon transition hover:bg-maroon hover:text-ivory"
-                  >
-                    View
-                  </Link>
-                </div>
-              </div>
-            </article>
+            <RoomCard key={r.id} room={r} onBook={() => onBook({ name: r.name, price: r.price })} />
           ))}
         </div>
       </div>
@@ -221,25 +254,153 @@ function FeaturedRooms() {
   );
 }
 
+function RoomCard({
+  room,
+  onBook,
+}: {
+  room: (typeof rooms)[number];
+  onBook: () => void;
+}) {
+  const [idx, setIdx] = useState(0);
+  const total = room.images.length;
+  const next = () => setIdx((i) => (i + 1) % total);
+  const prev = () => setIdx((i) => (i - 1 + total) % total);
+
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition duration-500 hover:-translate-y-1 hover:shadow-luxe">
+      <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
+        {room.images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${room.name} at Hari Vilas Hotel Sri Ganganagar — view ${i + 1}`}
+            loading="lazy"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${i === idx ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+        {total > 1 && (
+          <>
+            <button
+              type="button"
+              aria-label="Previous image"
+              onClick={prev}
+              className="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-background/85 text-foreground shadow-sm transition hover:bg-background"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={next}
+              className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-background/85 text-foreground shadow-sm transition hover:bg-background"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+              {room.images.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Show image ${i + 1}`}
+                  onClick={() => setIdx(i)}
+                  className={`h-1.5 rounded-full transition-all ${i === idx ? "w-6 bg-gold" : "w-2 bg-ivory/70"}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col p-5 md:p-6">
+        <h3 className="font-serif text-xl text-foreground md:text-2xl">{room.name}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{room.desc}</p>
+        <ul className="mt-4 flex flex-wrap gap-1.5">
+          {room.features.map((f) => (
+            <li key={f} className="rounded-full border border-border px-2.5 py-1 text-[11px] text-muted-foreground">{f}</li>
+          ))}
+        </ul>
+        <div className="mt-5 flex items-end justify-between gap-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">From</p>
+            <p className="font-serif text-2xl text-maroon">
+              ₹{room.price.toLocaleString()}
+              <span className="text-xs text-muted-foreground"> / night</span>
+            </p>
+          </div>
+          <button
+            onClick={onBook}
+            className="btn-gold rounded-sm px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em]"
+          >
+            Book Now
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function Amenities() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-32">
-      <div className="mx-auto mb-14 max-w-2xl text-center">
-        <p className="text-xs uppercase tracking-[0.4em] text-gold">The Vilas Experience</p>
-        <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">Everything, thoughtfully considered</h2>
+    <section id="amenities" className="mx-auto max-w-7xl px-5 py-20 sm:px-6 md:px-8 md:py-28">
+      <div className="mx-auto mb-12 max-w-2xl text-center md:mb-14">
+        <p className="text-xs uppercase tracking-[0.4em] text-gold">Amenities</p>
+        <h2 className="mt-3 font-serif text-3xl text-foreground sm:text-4xl md:text-5xl">Everything, thoughtfully considered</h2>
+        <p className="mt-4 text-sm text-muted-foreground md:text-base">
+          High-speed Wi-Fi, free parking, spotlessly clean rooms, a high-speed lift, and every comfort a modern traveller expects.
+        </p>
       </div>
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 lg:grid-cols-4">
         {amenities.map(({ icon: Icon, label }) => (
           <div
             key={label}
-            className="group flex flex-col items-center rounded-sm border border-border bg-card p-6 text-center transition hover:-translate-y-1 hover:border-gold hover:shadow-luxe"
+            className="group flex flex-col items-center rounded-sm border border-border bg-card p-5 text-center transition hover:-translate-y-1 hover:border-gold hover:shadow-luxe md:p-6"
           >
-            <span className="grid h-14 w-14 place-items-center rounded-full border border-gold/40 text-maroon transition group-hover:border-gold group-hover:bg-gold/10">
-              <Icon className="h-6 w-6" />
+            <span className="grid h-12 w-12 place-items-center rounded-full border border-gold/40 text-maroon transition group-hover:border-gold group-hover:bg-gold/10 md:h-14 md:w-14">
+              <Icon className="h-5 w-5 md:h-6 md:w-6" />
             </span>
-            <p className="mt-4 text-sm font-medium text-foreground">{label}</p>
+            <p className="mt-3 text-sm font-medium text-foreground md:mt-4">{label}</p>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function CoupleFriendly({ onBook }: { onBook: () => void }) {
+  const points = [
+    { icon: Heart, title: "Warm, respectful welcome", desc: "Couples are always welcome. Valid ID is all we ever ask for — no awkward questions." },
+    { icon: ShieldCheck, title: "Privacy first", desc: "Discreet check-in, do-not-disturb honoured, quiet floors — your time together is yours." },
+    { icon: Sparkles, title: "Room, done right", desc: "Fresh linens, spotless bathrooms, mood lighting and a real double bed you'll actually love." },
+    { icon: Coffee, title: "Little extras", desc: "Complimentary tea on arrival, late checkout on request, and a curated in-room dining menu." },
+  ];
+  return (
+    <section id="couples" className="relative overflow-hidden bg-maroon-deep py-20 text-ivory md:py-28">
+      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, #d4af37 0%, transparent 40%), radial-gradient(circle at 80% 60%, #d4af37 0%, transparent 40%)" }} />
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 md:px-8">
+        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-14">
+          <p className="text-xs uppercase tracking-[0.4em] text-gold-soft">Couple Friendly</p>
+          <h2 className="mt-3 font-serif text-3xl text-ivory sm:text-4xl md:text-5xl">Made for the two of you</h2>
+          <p className="mt-4 text-sm text-ivory/80 md:text-base">
+            At Hari Vilas Hotel, couples are genuinely welcome — celebrated, even. Whether it's an anniversary, a honeymoon, a weekend away, or simply a night just for the two of you, expect a warm, private and comfortable stay every single time.
+          </p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {points.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="rounded-sm border border-ivory/15 bg-ivory/[0.04] p-6 transition hover:border-gold">
+              <span className="grid h-11 w-11 place-items-center rounded-full border border-gold text-gold">
+                <Icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-serif text-xl text-ivory">{title}</h3>
+              <p className="mt-2 text-sm text-ivory/75">{desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <button
+            onClick={onBook}
+            className="btn-gold rounded-sm px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em]"
+          >
+            Book the Suite for Two
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -263,7 +424,7 @@ function useCounter(target: number, start: boolean) {
   return value;
 }
 
-function WhyUs() {
+function Stats() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -273,20 +434,15 @@ function WhyUs() {
     return () => io.disconnect();
   }, []);
   const stats = [
-    { n: 128, label: "Years of hospitality" },
-    { n: 92, label: "Rooms & suites" },
-    { n: 250000, label: "Guests welcomed" },
-    { n: 34, label: "International awards" },
+    { n: 16, label: "Rooms" },
+    { n: 1000, label: "Guests welcomed" },
+    { n: 4, label: "Room categories" },
+    { n: 24, label: "Hours front desk" },
   ];
   return (
-    <section ref={ref} className="relative overflow-hidden bg-maroon-deep py-24 text-ivory md:py-32">
-      <img src={pool} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover opacity-15" />
-      <div className="relative mx-auto max-w-7xl px-6 md:px-8">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-gold-soft">Why choose us</p>
-          <h2 className="mt-3 font-serif text-4xl text-ivory md:text-5xl">A legacy, still writing itself</h2>
-        </div>
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
+    <section ref={ref} className="bg-secondary/40 py-16 md:py-20">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {stats.map((s) => (
             <StatCounter key={s.label} target={s.n} label={s.label} start={visible} />
           ))}
@@ -300,42 +456,11 @@ function StatCounter({ target, label, start }: { target: number; label: string; 
   const v = useCounter(target, start);
   return (
     <div className="text-center">
-      <p className="text-gold-shimmer font-serif text-5xl md:text-6xl">
+      <p className="text-gold-shimmer font-serif text-4xl md:text-6xl">
         {v.toLocaleString()}{target >= 1000 && v === target ? "+" : ""}
       </p>
-      <p className="mt-3 text-xs uppercase tracking-[0.25em] text-ivory/70">{label}</p>
+      <p className="mt-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground md:mt-3 md:text-xs">{label}</p>
     </div>
-  );
-}
-
-function Experiences() {
-  const items = [
-    { img: dining, tag: "Dining", title: "A table by candlelight", desc: "Three restaurants. Local flavors, world plates, and a rooftop bar with a view of the lake." },
-    { img: spa, tag: "Vilas Spa", title: "Ancient rituals, modern calm", desc: "Ayurvedic therapies, hammam and signature couple's suites carved into the palace walls." },
-    { img: wedding, tag: "Celebrations", title: "Weddings written in gold", desc: "Courtyards, gardens and grand halls for gatherings of thirty to three hundred." },
-  ];
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-32">
-      <div className="mb-14">
-        <p className="text-xs uppercase tracking-[0.4em] text-gold">Experiences</p>
-        <h2 className="mt-3 max-w-2xl font-serif text-4xl text-foreground md:text-5xl">Days that turn into stories</h2>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-3">
-        {items.map((it) => (
-          <article key={it.title} className="group relative overflow-hidden rounded-sm">
-            <div className="aspect-[4/5] overflow-hidden">
-              <img src={it.img} alt={it.title} loading="lazy" width={1400} height={1000} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep via-maroon-deep/40 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-6 text-ivory">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-gold-soft">{it.tag}</p>
-              <h3 className="mt-2 font-serif text-2xl">{it.title}</h3>
-              <p className="mt-2 text-sm text-ivory/80">{it.desc}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
   );
 }
 
@@ -347,11 +472,11 @@ function Testimonials() {
   }, []);
   const t = testimonials[i];
   return (
-    <section className="bg-secondary/40 py-24 md:py-32">
-      <div className="mx-auto max-w-4xl px-6 text-center md:px-8">
+    <section id="reviews" className="py-20 md:py-28">
+      <div className="mx-auto max-w-4xl px-5 text-center sm:px-6 md:px-8">
         <p className="text-xs uppercase tracking-[0.4em] text-gold">Guest voices</p>
-        <Quote className="mx-auto mt-6 h-10 w-10 text-gold" />
-        <p key={i} className="fade-up mt-6 font-serif text-2xl italic leading-relaxed text-foreground md:text-3xl">
+        <Quote className="mx-auto mt-6 h-9 w-9 text-gold md:h-10 md:w-10" />
+        <p key={i} className="fade-up mt-6 font-serif text-xl italic leading-relaxed text-foreground sm:text-2xl md:text-3xl">
           "{t.quote}"
         </p>
         <div className="mt-6 flex justify-center gap-1 text-gold">
@@ -361,7 +486,7 @@ function Testimonials() {
         </div>
         <p className="mt-4 text-sm font-semibold uppercase tracking-[0.25em] text-maroon">{t.name}</p>
         <p className="text-xs text-muted-foreground">{t.city}</p>
-        <div className="mt-8 flex justify-center gap-2">
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
           {testimonials.map((_, k) => (
             <button
               key={k}
@@ -376,102 +501,144 @@ function Testimonials() {
   );
 }
 
-function GalleryStrip() {
-  const imgs = [roomDeluxe, dining, pool, spa, wedding, roomPoolVilla];
+function Location() {
   return (
-    <section className="py-24 md:py-32">
-      <div className="mx-auto mb-10 max-w-7xl px-6 md:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-gold">@thehariviías</p>
-            <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">From the palace, lately</h2>
-          </div>
-          <Link to="/gallery" className="group inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-maroon">
-            Full gallery <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-1 md:grid-cols-6">
-        {imgs.map((src, i) => (
-          <div key={i} className="group aspect-square overflow-hidden">
-            <img src={src} alt="" aria-hidden loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function OffersPreview() {
-  const offers = [
-    { tag: "Honeymoon", title: "The Two of You", desc: "3 nights, private candlelit dinner, couple's spa ritual and late checkout.", price: "₹58,000" },
-    { tag: "Family", title: "Palace Playdays", desc: "Interconnecting rooms, kids' welcome hamper, complimentary breakfast.", price: "₹42,000" },
-    { tag: "Long Stay", title: "The Slow Escape", desc: "Stay 5, pay for 4. Yoga sunrises, curated Udaipur excursions.", price: "₹1,20,000" },
-  ];
-  return (
-    <section className="bg-maroon-deep py-24 text-ivory md:py-32">
-      <div className="mx-auto max-w-7xl px-6 md:px-8">
-        <div className="mb-14 text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-gold-soft">Offers & Packages</p>
-          <h2 className="mt-3 font-serif text-4xl md:text-5xl">Reasons to stay a little longer</h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {offers.map((o) => (
-            <div key={o.title} className="rounded-sm border border-ivory/15 bg-ivory/[0.03] p-8 transition hover:border-gold">
-              <p className="text-[10px] uppercase tracking-[0.3em] text-gold">{o.tag}</p>
-              <h3 className="mt-3 font-serif text-2xl">{o.title}</h3>
-              <p className="mt-3 text-sm text-ivory/75">{o.desc}</p>
-              <div className="mt-8 flex items-end justify-between">
-                <p className="font-serif text-2xl text-gold-soft">{o.price}</p>
-                <Link to="/offers" className="text-xs font-semibold uppercase tracking-[0.2em] text-ivory hover:text-gold">
-                  Book →
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LocationCta() {
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-32">
-      <div className="grid gap-12 md:grid-cols-2 md:items-center">
+    <section id="location" className="mx-auto max-w-7xl px-5 py-20 sm:px-6 md:px-8 md:py-28">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-gold">Find Us</p>
-          <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">On the edge of Lake Pichola</h2>
+          <h2 className="mt-3 font-serif text-3xl text-foreground sm:text-4xl md:text-5xl">In the heart of Sri Ganganagar</h2>
           <p className="mt-5 max-w-md text-muted-foreground">
-            A five-minute drive from the City Palace, twenty from Maharana Pratap Airport. Our chauffeur can meet you at the gate.
+            A few minutes from Sri Ganganagar railway station and Gole Bazaar, and within easy reach of Fort Rajwada. Free on-site parking for all guests.
           </p>
           <div className="mt-6 flex items-start gap-3 text-sm text-foreground">
-            <MapPin className="mt-0.5 h-5 w-5 text-gold" />
-            Palace Road, Old City, Udaipur, Rajasthan 313001
+            <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
+            Plot No. 33, Thana RD, near Moti Palace, Old City, Sri Ganganagar, Rajasthan 335001
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="https://maps.google.com/?q=Udaipur"
+              href="https://www.google.com/maps/search/?api=1&query=Hari+Vilas+Hotel+Plot+33+Thana+Road+Moti+Palace+Old+City+Sri+Ganganagar+Rajasthan+335001"
               target="_blank"
               rel="noreferrer"
               className="btn-gold rounded-sm px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em]"
             >
               Get directions
             </a>
-            <Link to="/contact" className="rounded-sm border border-maroon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-maroon hover:bg-maroon hover:text-ivory">
-              Speak to concierge
-            </Link>
+            <a href="tel:+919950629029" className="rounded-sm border border-maroon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-maroon hover:bg-maroon hover:text-ivory">
+              Call concierge
+            </a>
           </div>
         </div>
         <div className="aspect-[4/3] overflow-hidden rounded-sm border border-border">
           <iframe
-            title="The Hari Vilas location"
-            src="https://www.google.com/maps?q=Udaipur+Rajasthan&output=embed"
+            title="The Hari Vilas Hotel — Sri Ganganagar location"
+            src="https://www.google.com/maps?q=Plot+No.+33,+Thana+Road,+near+Moti+Palace,+Old+City,+Sri+Ganganagar,+Rajasthan+335001&output=embed"
             className="h-full w-full"
             loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
           />
         </div>
       </div>
     </section>
   );
 }
+
+const canonical = "https://harivilas.lovable.app/";
+const description = "Discover the best hotels in Sri Ganganagar at Hari Vilas Hotel. Enjoy luxurious rooms, complimentary breakfast, and easy access to local attractions.";
+const title = "Top Hotels in Sri Ganganagar – Hari Vilas Hotel";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical },
+      { property: "og:image", content: HERO_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: HERO_IMAGE },
+      { name: "keywords", content: "hotels in Sri Ganganagar, Hari Vilas Hotel, luxury hotel Sri Ganganagar, budget hotel Sri Ganganagar, hotel near Sri Ganganagar railway station, hotel near Fort Rajwada, couple friendly hotel Sri Ganganagar" },
+    ],
+    links: [{ rel: "canonical", href: canonical }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Hotel",
+          name: "Hari Vilas Hotel",
+          description,
+          url: canonical,
+          telephone: "+91-99506-29029",
+          email: "theharivilashotel@gmail.com",
+          image: HERO_IMAGE,
+          priceRange: "₹₹",
+          starRating: { "@type": "Rating", ratingValue: "4.9" },
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Plot No. 33, Thana Road, near Moti Palace, Old City",
+            addressLocality: "Sri Ganganagar",
+            addressRegion: "Rajasthan",
+            postalCode: "335001",
+            addressCountry: "IN",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 29.9094, longitude: 73.8800 },
+          checkinTime: "12:00",
+          checkoutTime: "11:00",
+          amenityFeature: [
+            "High-Speed Wi-Fi",
+            "Free Parking",
+            "Couple Friendly",
+            "Air Conditioning",
+            "24×7 Front Desk",
+            "In-house Restaurant",
+            "High-Speed Lift",
+            "Complimentary Breakfast",
+          ].map((n) => ({ "@type": "LocationFeatureSpecification", name: n, value: true })),
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": canonical + "#business",
+          name: "Hari Vilas Hotel",
+          image: HERO_IMAGE,
+          telephone: "+91-99506-29029",
+          email: "theharivilashotel@gmail.com",
+          url: canonical,
+          priceRange: "₹₹",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Plot No. 33, Thana Road, near Moti Palace, Old City",
+            addressLocality: "Sri Ganganagar",
+            addressRegion: "Rajasthan",
+            postalCode: "335001",
+            addressCountry: "IN",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 29.9094, longitude: 73.8800 },
+          openingHours: "Mo-Su 00:00-23:59",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: canonical },
+            { "@type": "ListItem", position: 2, name: "Rooms", item: canonical + "#rooms" },
+            { "@type": "ListItem", position: 3, name: "Amenities", item: canonical + "#amenities" },
+            { "@type": "ListItem", position: 4, name: "Location", item: canonical + "#location" },
+          ],
+        }),
+      },
+    ],
+  }),
+  component: Home,
+});

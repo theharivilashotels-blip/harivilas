@@ -10,53 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RoomsRouteImport } from './routes/rooms'
-import { Route as OffersRouteImport } from './routes/offers'
-import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as DiningRouteImport } from './routes/dining'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AmenitiesRouteImport } from './routes/amenities'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogThingsToDoSriGanganagarRouteImport } from './routes/blog.things-to-do-sri-ganganagar'
+import { Route as BlogHeritageAndAmenitiesRouteImport } from './routes/blog.heritage-and-amenities'
+import { Route as BlogBestTimeToVisitRouteImport } from './routes/blog.best-time-to-visit'
+import { Route as ApiBookRouteImport } from './routes/api/book'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RoomsRoute = RoomsRouteImport.update({
-  id: '/rooms',
-  path: '/rooms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersRoute = OffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiningRoute = DiningRouteImport.update({
-  id: '/dining',
-  path: '/dining',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AmenitiesRoute = AmenitiesRouteImport.update({
-  id: '/amenities',
-  path: '/amenities',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -64,87 +26,88 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogThingsToDoSriGanganagarRoute =
+  BlogThingsToDoSriGanganagarRouteImport.update({
+    id: '/blog/things-to-do-sri-ganganagar',
+    path: '/blog/things-to-do-sri-ganganagar',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogHeritageAndAmenitiesRoute =
+  BlogHeritageAndAmenitiesRouteImport.update({
+    id: '/blog/heritage-and-amenities',
+    path: '/blog/heritage-and-amenities',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogBestTimeToVisitRoute = BlogBestTimeToVisitRouteImport.update({
+  id: '/blog/best-time-to-visit',
+  path: '/blog/best-time-to-visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBookRoute = ApiBookRouteImport.update({
+  id: '/api/book',
+  path: '/api/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/amenities': typeof AmenitiesRoute
-  '/contact': typeof ContactRoute
-  '/dining': typeof DiningRoute
-  '/gallery': typeof GalleryRoute
-  '/offers': typeof OffersRoute
-  '/rooms': typeof RoomsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/amenities': typeof AmenitiesRoute
-  '/contact': typeof ContactRoute
-  '/dining': typeof DiningRoute
-  '/gallery': typeof GalleryRoute
-  '/offers': typeof OffersRoute
-  '/rooms': typeof RoomsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/amenities': typeof AmenitiesRoute
-  '/contact': typeof ContactRoute
-  '/dining': typeof DiningRoute
-  '/gallery': typeof GalleryRoute
-  '/offers': typeof OffersRoute
-  '/rooms': typeof RoomsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
-    | '/amenities'
-    | '/contact'
-    | '/dining'
-    | '/gallery'
-    | '/offers'
-    | '/rooms'
     | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
-    | '/amenities'
-    | '/contact'
-    | '/dining'
-    | '/gallery'
-    | '/offers'
-    | '/rooms'
     | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
   id:
     | '__root__'
     | '/'
-    | '/about'
-    | '/amenities'
-    | '/contact'
-    | '/dining'
-    | '/gallery'
-    | '/offers'
-    | '/rooms'
     | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  AmenitiesRoute: typeof AmenitiesRoute
-  ContactRoute: typeof ContactRoute
-  DiningRoute: typeof DiningRoute
-  GalleryRoute: typeof GalleryRoute
-  OffersRoute: typeof OffersRoute
-  RoomsRoute: typeof RoomsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiBookRoute: typeof ApiBookRoute
+  BlogBestTimeToVisitRoute: typeof BlogBestTimeToVisitRoute
+  BlogHeritageAndAmenitiesRoute: typeof BlogHeritageAndAmenitiesRoute
+  BlogThingsToDoSriGanganagarRoute: typeof BlogThingsToDoSriGanganagarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -156,55 +119,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/rooms': {
-      id: '/rooms'
-      path: '/rooms'
-      fullPath: '/rooms'
-      preLoaderRoute: typeof RoomsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/offers': {
-      id: '/offers'
-      path: '/offers'
-      fullPath: '/offers'
-      preLoaderRoute: typeof OffersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dining': {
-      id: '/dining'
-      path: '/dining'
-      fullPath: '/dining'
-      preLoaderRoute: typeof DiningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/amenities': {
-      id: '/amenities'
-      path: '/amenities'
-      fullPath: '/amenities'
-      preLoaderRoute: typeof AmenitiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -212,20 +126,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/things-to-do-sri-ganganagar': {
+      id: '/blog/things-to-do-sri-ganganagar'
+      path: '/blog/things-to-do-sri-ganganagar'
+      fullPath: '/blog/things-to-do-sri-ganganagar'
+      preLoaderRoute: typeof BlogThingsToDoSriGanganagarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/heritage-and-amenities': {
+      id: '/blog/heritage-and-amenities'
+      path: '/blog/heritage-and-amenities'
+      fullPath: '/blog/heritage-and-amenities'
+      preLoaderRoute: typeof BlogHeritageAndAmenitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/best-time-to-visit': {
+      id: '/blog/best-time-to-visit'
+      path: '/blog/best-time-to-visit'
+      fullPath: '/blog/best-time-to-visit'
+      preLoaderRoute: typeof BlogBestTimeToVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/book': {
+      id: '/api/book'
+      path: '/api/book'
+      fullPath: '/api/book'
+      preLoaderRoute: typeof ApiBookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  AmenitiesRoute: AmenitiesRoute,
-  ContactRoute: ContactRoute,
-  DiningRoute: DiningRoute,
-  GalleryRoute: GalleryRoute,
-  OffersRoute: OffersRoute,
-  RoomsRoute: RoomsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiBookRoute: ApiBookRoute,
+  BlogBestTimeToVisitRoute: BlogBestTimeToVisitRoute,
+  BlogHeritageAndAmenitiesRoute: BlogHeritageAndAmenitiesRoute,
+  BlogThingsToDoSriGanganagarRoute: BlogThingsToDoSriGanganagarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
