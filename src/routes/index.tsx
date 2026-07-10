@@ -85,6 +85,13 @@ function Home() {
     setModalOpen(true);
   }
 
+  useEffect(() => {
+    const h = () => openBooking();
+    window.addEventListener("hv:book", h);
+    return () => window.removeEventListener("hv:book", h);
+  }, []);
+
+
   return (
     <>
       <Hero onBook={() => openBooking()} />
