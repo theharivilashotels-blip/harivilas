@@ -45,7 +45,7 @@ export function Navbar({ onBook }: { onBook?: () => void }) {
                 scrolled || open ? "text-foreground" : "text-ivory"
               }`}
             >
-              The Hari Vilas
+              The Hari Vilas Hotel
             </span>
             <span
               className={`hidden text-[10px] uppercase tracking-[0.3em] sm:block ${
