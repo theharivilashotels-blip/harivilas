@@ -9,8 +9,9 @@ import { BookingModal } from "../components/site/BookingModal";
 import heroFallback from "../assets/hero-exterior.jpg";
 import suite1 from "../assets/suite-1.jpg";
 import suite2 from "../assets/suite-2.jpg";
+import heroHotel from "../assets/hero-hotel.png.asset.json";
 
-const HERO_IMAGE = "https://i.ibb.co/Hp9WzDBz/1706-B468-C9-FA-40-B8-B369-B6684-E47-D5-AE.png";
+const HERO_IMAGE = heroHotel.url;
 
 const rooms = [
   {
