@@ -21,7 +21,7 @@ function NotFoundComponent() {
         <h1 className="font-serif text-7xl text-maroon">404</h1>
         <h2 className="mt-4 font-serif text-2xl text-foreground">Page not found</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          This corridor of the palace leads nowhere. Let us guide you back.
+          This corridor leads nowhere. Let us guide you back.
         </p>
         <Link
           to="/"
@@ -67,33 +67,22 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const siteTitle = "Top Hotels in Sri Ganganagar – Hari Vilas Hotel";
+const siteDescription = "Discover the best hotels in Sri Ganganagar at Hari Vilas Hotel. Enjoy luxurious rooms, complimentary breakfast, and easy access to local attractions.";
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
-      {
-        name: "description",
-        content:
-          "The Hari Vilas is a 5-star heritage hotel in Udaipur offering regal suites, palace dining, spa retreats and unforgettable weddings. Reserve your escape.",
-      },
-      { name: "author", content: "The Hari Vilas Hotel" },
-      { property: "og:site_name", content: "The Hari Vilas Hotel" },
-      { property: "og:title", content: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
-      {
-        property: "og:description",
-        content: "A 5-star heritage retreat in Udaipur. Regal suites, palace dining, spa and weddings.",
-      },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { title: siteTitle },
+      { name: "description", content: siteDescription },
+      { name: "author", content: "Hari Vilas Hotel" },
+      { name: "theme-color", content: "#4a0e1f" },
+      { property: "og:site_name", content: "Hari Vilas Hotel" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "The Hari Vilas Hotel — Royal Heritage Luxury in Udaipur" },
-      { name: "description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
-      { property: "og:description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
-      { name: "twitter:description", content: "Step into The Hari Vilas — a 5-star heritage palace hotel in Udaipur. Regal suites, palace dining, spa rituals, and cinematic experiences." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9fadf60-5cb4-45db-8f04-7f19566c6884/id-preview-c2cdf1e7--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783431154791.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9fadf60-5cb4-45db-8f04-7f19566c6884/id-preview-c2cdf1e7--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783431154791.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -128,10 +117,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  function scrollToTop() {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
-        <Navbar />
+      <div className="flex min-h-screen w-full flex-col overflow-x-hidden">
+        <Navbar onBook={scrollToTop} />
         <main className="flex-1">
           <Outlet />
         </main>

@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogThingsToDoSriGanganagarRouteImport } from './routes/blog.things-to-do-sri-ganganagar'
+import { Route as BlogHeritageAndAmenitiesRouteImport } from './routes/blog.heritage-and-amenities'
+import { Route as BlogBestTimeToVisitRouteImport } from './routes/blog.best-time-to-visit'
 import { Route as ApiBookRouteImport } from './routes/api/book'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -23,6 +26,23 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogThingsToDoSriGanganagarRoute =
+  BlogThingsToDoSriGanganagarRouteImport.update({
+    id: '/blog/things-to-do-sri-ganganagar',
+    path: '/blog/things-to-do-sri-ganganagar',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogHeritageAndAmenitiesRoute =
+  BlogHeritageAndAmenitiesRouteImport.update({
+    id: '/blog/heritage-and-amenities',
+    path: '/blog/heritage-and-amenities',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogBestTimeToVisitRoute = BlogBestTimeToVisitRouteImport.update({
+  id: '/blog/best-time-to-visit',
+  path: '/blog/best-time-to-visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBookRoute = ApiBookRouteImport.update({
   id: '/api/book',
   path: '/api/book',
@@ -33,30 +53,61 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
+  '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
+  '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
+  '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/api/book'
+  fullPaths:
+    | '/'
+    | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/api/book'
-  id: '__root__' | '/' | '/sitemap.xml' | '/api/book'
+  to:
+    | '/'
+    | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
+  id:
+    | '__root__'
+    | '/'
+    | '/sitemap.xml'
+    | '/api/book'
+    | '/blog/best-time-to-visit'
+    | '/blog/heritage-and-amenities'
+    | '/blog/things-to-do-sri-ganganagar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiBookRoute: typeof ApiBookRoute
+  BlogBestTimeToVisitRoute: typeof BlogBestTimeToVisitRoute
+  BlogHeritageAndAmenitiesRoute: typeof BlogHeritageAndAmenitiesRoute
+  BlogThingsToDoSriGanganagarRoute: typeof BlogThingsToDoSriGanganagarRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +126,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/things-to-do-sri-ganganagar': {
+      id: '/blog/things-to-do-sri-ganganagar'
+      path: '/blog/things-to-do-sri-ganganagar'
+      fullPath: '/blog/things-to-do-sri-ganganagar'
+      preLoaderRoute: typeof BlogThingsToDoSriGanganagarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/heritage-and-amenities': {
+      id: '/blog/heritage-and-amenities'
+      path: '/blog/heritage-and-amenities'
+      fullPath: '/blog/heritage-and-amenities'
+      preLoaderRoute: typeof BlogHeritageAndAmenitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/best-time-to-visit': {
+      id: '/blog/best-time-to-visit'
+      path: '/blog/best-time-to-visit'
+      fullPath: '/blog/best-time-to-visit'
+      preLoaderRoute: typeof BlogBestTimeToVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/book': {
       id: '/api/book'
       path: '/api/book'
@@ -89,6 +161,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiBookRoute: ApiBookRoute,
+  BlogBestTimeToVisitRoute: BlogBestTimeToVisitRoute,
+  BlogHeritageAndAmenitiesRoute: BlogHeritageAndAmenitiesRoute,
+  BlogThingsToDoSriGanganagarRoute: BlogThingsToDoSriGanganagarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
