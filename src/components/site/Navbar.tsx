@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { href: "#rooms", label: "Rooms" },
-  { href: "#amenities", label: "Amenities" },
-  { href: "#couples", label: "Couples" },
-  { href: "#reviews", label: "Reviews" },
-  { href: "#location", label: "Location" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#rooms", label: "Rooms" },
+  { href: "/#amenities", label: "Amenities" },
+  { href: "/#couples", label: "Couples" },
+  { href: "/about", label: "About" },
+  { href: "/#location", label: "Location" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export function Navbar({ onBook }: { onBook?: () => void }) {
