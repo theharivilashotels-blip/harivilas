@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RoomsSlugRouteImport } from './routes/rooms.$slug'
 import { Route as BlogThingsToDoSriGanganagarRouteImport } from './routes/blog.things-to-do-sri-ganganagar'
 import { Route as BlogHeritageAndAmenitiesRouteImport } from './routes/blog.heritage-and-amenities'
 import { Route as BlogBestTimeToVisitRouteImport } from './routes/blog.best-time-to-visit'
@@ -21,9 +23,19 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoomsSlugRoute = RoomsSlugRouteImport.update({
+  id: '/rooms/$slug',
+  path: '/rooms/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogThingsToDoSriGanganagarRoute =
@@ -51,63 +63,77 @@ const ApiBookRoute = ApiBookRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
   '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
   '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
   '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
+  '/rooms/$slug': typeof RoomsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
   '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
   '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
   '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
+  '/rooms/$slug': typeof RoomsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/book': typeof ApiBookRoute
   '/blog/best-time-to-visit': typeof BlogBestTimeToVisitRoute
   '/blog/heritage-and-amenities': typeof BlogHeritageAndAmenitiesRoute
   '/blog/things-to-do-sri-ganganagar': typeof BlogThingsToDoSriGanganagarRoute
+  '/rooms/$slug': typeof RoomsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/sitemap.xml'
     | '/api/book'
     | '/blog/best-time-to-visit'
     | '/blog/heritage-and-amenities'
     | '/blog/things-to-do-sri-ganganagar'
+    | '/rooms/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/sitemap.xml'
     | '/api/book'
     | '/blog/best-time-to-visit'
     | '/blog/heritage-and-amenities'
     | '/blog/things-to-do-sri-ganganagar'
+    | '/rooms/$slug'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/sitemap.xml'
     | '/api/book'
     | '/blog/best-time-to-visit'
     | '/blog/heritage-and-amenities'
     | '/blog/things-to-do-sri-ganganagar'
+    | '/rooms/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiBookRoute: typeof ApiBookRoute
   BlogBestTimeToVisitRoute: typeof BlogBestTimeToVisitRoute
   BlogHeritageAndAmenitiesRoute: typeof BlogHeritageAndAmenitiesRoute
   BlogThingsToDoSriGanganagarRoute: typeof BlogThingsToDoSriGanganagarRoute
+  RoomsSlugRoute: typeof RoomsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -119,11 +145,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rooms/$slug': {
+      id: '/rooms/$slug'
+      path: '/rooms/$slug'
+      fullPath: '/rooms/$slug'
+      preLoaderRoute: typeof RoomsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/things-to-do-sri-ganganagar': {
@@ -159,11 +199,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiBookRoute: ApiBookRoute,
   BlogBestTimeToVisitRoute: BlogBestTimeToVisitRoute,
   BlogHeritageAndAmenitiesRoute: BlogHeritageAndAmenitiesRoute,
   BlogThingsToDoSriGanganagarRoute: BlogThingsToDoSriGanganagarRoute,
+  RoomsSlugRoute: RoomsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

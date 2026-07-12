@@ -1,62 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Wifi, Sparkles, Star, MapPin, ArrowRight, Quote,
-  ChevronLeft, ChevronRight, Coffee, Heart, ShieldCheck, ParkingCircle,
+  Coffee, Heart, ShieldCheck, ParkingCircle,
   BedDouble, Utensils,
 } from "lucide-react";
 import { BookingModal } from "../components/site/BookingModal";
-import heroFallback from "../assets/hero-exterior.jpg";
 import suite1 from "../assets/suite-1.jpg";
-import suite2 from "../assets/suite-2.jpg";
-import heroHotel from "../assets/hero-hotel.png.asset.json";
+import heroFacade from "../assets/hero-facade.png.asset.json";
+import { rooms, type Room } from "../data/rooms";
 
-const HERO_IMAGE = heroHotel.url;
-
-const rooms = [
-  {
-    id: "deluxe",
-    name: "Deluxe Room",
-    price: 1350,
-    desc: "Warm, spacious and beautifully finished. The perfect everyday luxury for solo travellers and couples.",
-    images: [
-      "https://i.ibb.co/DPFSDdBD/IMG-4544.jpg",
-      "https://i.ibb.co/LXTZxnxL/IMG-4540.jpg",
-    ],
-    features: ["King bed", "AC", "Free Wi-Fi", "24×7 room service"],
-  },
-  {
-    id: "premium",
-    name: "Standard Room",
-    price: 1550,
-    desc: "Upgraded comfort, elegant décor and thoughtful touches for a truly restful stay.",
-    images: [
-      "https://i.ibb.co/MxFPdDD8/IMG-4535.jpg",
-      "https://i.ibb.co/kVhD79bb/IMG-4536.jpg",
-      "https://i.ibb.co/tGsjkNH/IMG-4598.jpg",
-    ],
-    features: ["Premium bedding", "Work desk", "Complimentary breakfast", "Free Wi-Fi"],
-  },
-  {
-    id: "suite",
-    name: "Suite Room",
-    price: 3150,
-    desc: "Our most spacious room — a private living area, king bed and premium amenities. Ideal for couples and special occasions.",
-    images: [suite1, suite2],
-    features: ["Separate living area", "King bed", "Couple friendly", "Late checkout"],
-  },
-  {
-    id: "standard",
-    name: "Premium Room",
-    price: 1150,
-    desc: "Clean, comfortable and value-for-money. Everything you need for a great night's sleep.",
-    images: [
-      "https://i.ibb.co/dsW6qzhk/IMG-4594.jpg",
-      "https://i.ibb.co/sJMQ7rpz/IMG-4595.jpg",
-    ],
-    features: ["Queen bed", "AC", "Free Wi-Fi", "TV"],
-  },
-];
+const HERO_IMAGE = heroFacade.url;
 
 const amenities = [
   { icon: Wifi, label: "High-Speed Wi-Fi" },
