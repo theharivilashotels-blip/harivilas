@@ -79,36 +79,25 @@ function Hero({ onBook }: { onBook: () => void }) {
   const words = ["The", "Hari", "Vilas", "Hotel"];
   return (
     <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-maroon-deep">
-      {/* Blurred backdrop so portrait hero image fills any screen elegantly */}
-      <img
-        src={HERO_IMAGE}
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
-      />
-      <img
-        src={heroFallback}
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full object-cover opacity-0"
-      />
       <img
         src={HERO_IMAGE}
         alt="The Hari Vilas Hotel — luxury stay in Sri Ganganagar, Rajasthan"
         onLoad={() => setLoaded(true)}
-        className={`hero-zoom absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-[1400ms] md:object-cover md:object-top ${loaded ? "opacity-100" : "opacity-0"}`}
+        className={`hero-zoom absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1400ms] ${loaded ? "opacity-100" : "opacity-0"}`}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/50 via-maroon-deep/20 to-maroon-deep/90" />
+      {/* Soft dark overlay only at top and bottom for text legibility — image stays 100% opacity */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-maroon-deep/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-maroon-deep/90 via-maroon-deep/40 to-transparent" />
 
       {/* Curtain reveal veil */}
       <div className="hero-veil pointer-events-none absolute inset-0 z-20 bg-maroon-deep" style={{ animationDelay: "100ms" }} />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-end px-5 pb-16 text-center md:justify-center md:pb-0">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-end px-5 pb-16 text-center">
         <p className="fade-up mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-gold-soft sm:text-[11px] sm:tracking-[0.5em]" style={{ animationDelay: "1200ms" }}>
           <span className="h-px w-8 bg-gold sm:w-10" /> Sri Ganganagar, Rajasthan <span className="h-px w-8 bg-gold sm:w-10" />
         </p>
 
-        <h1 className="font-serif text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl lg:text-8xl">
+        <h1 className="font-serif text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-6xl lg:text-7xl">
           <span className="flex flex-wrap justify-center gap-x-3 gap-y-1 md:gap-x-5">
             {words.map((w, i) => (
               <span
@@ -133,10 +122,10 @@ function Hero({ onBook }: { onBook: () => void }) {
         </h1>
 
         <p
-          className="fade-up mt-6 max-w-xl text-sm text-ivory/85 sm:text-base md:text-lg"
+          className="fade-up mt-6 max-w-xl text-sm text-ivory/90 sm:text-base md:text-lg"
           style={{ animationDelay: "2600ms" }}
         >
-          A warm, couple-friendly boutique hotel in the heart of Sri Ganganagar — sixteen thoughtfully designed rooms, sincere hospitality and every comfort you deserve.
+          A warm, couple-friendly boutique hotel in the heart of Sri Ganganagar — sixteen thoughtfully designed rooms and sincere hospitality.
         </p>
         <div className="fade-up mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10" style={{ animationDelay: "2800ms" }}>
           <button
@@ -147,14 +136,10 @@ function Hero({ onBook }: { onBook: () => void }) {
           </button>
           <a
             href="#rooms"
-            className="rounded-sm border border-ivory/40 px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-ivory transition hover:border-gold hover:text-gold"
+            className="rounded-sm border border-ivory/40 bg-maroon-deep/30 px-7 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-ivory backdrop-blur-sm transition hover:border-gold hover:text-gold"
           >
             View Rooms
           </a>
-        </div>
-        <div className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-ivory/60 sm:block">
-          <div className="mx-auto h-10 w-px animate-pulse bg-gold/70" />
-          <p className="mt-2 text-[10px] uppercase tracking-[0.4em]">Scroll</p>
         </div>
       </div>
     </section>
@@ -216,7 +201,7 @@ function Fact({ k, v }: { k: string; v: string }) {
   );
 }
 
-function FeaturedRooms({ onBook }: { onBook: (r: { name: string; price: number }) => void }) {
+function FeaturedRooms() {
   return (
     <section id="rooms" className="bg-secondary/40 py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 md:px-8">
@@ -224,12 +209,12 @@ function FeaturedRooms({ onBook }: { onBook: (r: { name: string; price: number }
           <p className="text-xs uppercase tracking-[0.4em] text-gold">Rooms</p>
           <h2 className="mt-3 font-serif text-3xl text-foreground sm:text-4xl md:text-5xl">Our four room categories</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground md:text-base">
-            From value-conscious Standard rooms to our spacious Suite — every room is spotlessly clean, air-conditioned and thoughtfully designed.
+            From value-conscious rooms to our spacious Suite — every room is spotlessly clean, air-conditioned and thoughtfully designed.
           </p>
         </div>
         <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
           {rooms.map((r) => (
-            <RoomCard key={r.id} room={r} onBook={() => onBook({ name: r.name, price: r.price })} />
+            <RoomCard key={r.slug} room={r} />
           ))}
         </div>
       </div>
@@ -237,66 +222,31 @@ function FeaturedRooms({ onBook }: { onBook: (r: { name: string; price: number }
   );
 }
 
-function RoomCard({
-  room,
-  onBook,
-}: {
-  room: (typeof rooms)[number];
-  onBook: () => void;
-}) {
-  const [idx, setIdx] = useState(0);
-  const total = room.images.length;
-  const next = () => setIdx((i) => (i + 1) % total);
-  const prev = () => setIdx((i) => (i - 1 + total) % total);
-
+function RoomCard({ room }: { room: Room }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition duration-500 hover:-translate-y-1 hover:shadow-luxe">
-      <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-        {room.images.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={`${room.name} at Hari Vilas Hotel Sri Ganganagar — view ${i + 1}`}
-            loading="lazy"
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${i === idx ? "opacity-100" : "opacity-0"}`}
-          />
-        ))}
-        {total > 1 && (
-          <>
-            <button
-              type="button"
-              aria-label="Previous image"
-              onClick={prev}
-              className="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-background/85 text-foreground shadow-sm transition hover:bg-background"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              aria-label="Next image"
-              onClick={next}
-              className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-background/85 text-foreground shadow-sm transition hover:bg-background"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
-              {room.images.map((_, i) => (
-                <button
-                  key={i}
-                  aria-label={`Show image ${i + 1}`}
-                  onClick={() => setIdx(i)}
-                  className={`h-1.5 rounded-full transition-all ${i === idx ? "w-6 bg-gold" : "w-2 bg-ivory/70"}`}
-                />
-              ))}
-            </div>
-          </>
+      <Link
+        to="/rooms/$slug"
+        params={{ slug: room.slug }}
+        className="relative block aspect-[4/3] overflow-hidden bg-secondary"
+      >
+        <img
+          src={room.images[0]}
+          alt={`${room.name} at The Hari Vilas Hotel Sri Ganganagar`}
+          loading="lazy"
+          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        />
+        {room.images.length > 1 && (
+          <span className="absolute bottom-2 right-2 rounded-full bg-background/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-foreground">
+            +{room.images.length - 1} photos
+          </span>
         )}
-      </div>
+      </Link>
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <h3 className="font-serif text-xl text-foreground md:text-2xl">{room.name}</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{room.desc}</p>
         <ul className="mt-4 flex flex-wrap gap-1.5">
-          {room.features.map((f) => (
+          {room.features.slice(0, 4).map((f) => (
             <li key={f} className="rounded-full border border-border px-2.5 py-1 text-[11px] text-muted-foreground">{f}</li>
           ))}
         </ul>
@@ -308,12 +258,13 @@ function RoomCard({
               <span className="text-xs text-muted-foreground"> / night</span>
             </p>
           </div>
-          <button
-            onClick={onBook}
+          <Link
+            to="/rooms/$slug"
+            params={{ slug: room.slug }}
             className="btn-gold rounded-sm px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.2em]"
           >
-            Book Now
-          </button>
+            Learn More
+          </Link>
         </div>
       </div>
     </article>
