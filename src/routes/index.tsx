@@ -51,10 +51,11 @@ function Home() {
     <>
       <Hero onBook={() => openBooking()} />
       <Welcome onBook={() => openBooking()} />
-      <FeaturedRooms onBook={openBooking} />
+      <FeaturedRooms />
       <Amenities />
       <CoupleFriendly onBook={() => openBooking({ name: "Suite Room", price: 3150 })} />
       <Stats />
+      <AboutTeaser />
       <Testimonials />
       <Location />
       <BookingModal
