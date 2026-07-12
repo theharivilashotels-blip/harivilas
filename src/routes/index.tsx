@@ -436,6 +436,46 @@ function Testimonials() {
   );
 }
 
+function AboutTeaser() {
+  return (
+    <section id="about" className="mx-auto max-w-7xl px-5 py-20 sm:px-6 md:px-8 md:py-28">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-14">
+        <div className="relative order-2 md:order-1">
+          <div className="aspect-[4/5] w-full overflow-hidden rounded-sm bg-secondary">
+            <img
+              src={HERO_IMAGE}
+              alt="The Hari Vilas Hotel facade in Sri Ganganagar"
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-5 -right-3 rounded-sm border border-gold bg-background p-4 shadow-luxe sm:-right-6 sm:p-5">
+            <p className="font-serif text-xl text-maroon sm:text-2xl">Since day one</p>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:text-xs">Sincere hospitality</p>
+          </div>
+        </div>
+        <div className="order-1 md:order-2">
+          <p className="text-xs uppercase tracking-[0.4em] text-gold">About Us</p>
+          <h2 className="mt-4 font-serif text-3xl leading-tight text-foreground sm:text-4xl md:text-5xl">
+            The story behind The Hari Vilas Hotel
+          </h2>
+          <div className="divider-motif my-6 max-w-[10rem] justify-start"><span>◆</span></div>
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+            Built on a simple idea — Sri Ganganagar deserves a hotel that feels genuinely warm, spotlessly clean, and treats every guest like family. Sixteen thoughtfully designed rooms, a beautifully lit facade, and a team that truly cares.
+          </p>
+          <Link
+            to="/about"
+            className="btn-gold mt-8 inline-flex rounded-sm px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em]"
+          >
+            Learn More
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function Location() {
   return (
     <section id="location" className="mx-auto max-w-7xl px-5 py-20 sm:px-6 md:px-8 md:py-28">
