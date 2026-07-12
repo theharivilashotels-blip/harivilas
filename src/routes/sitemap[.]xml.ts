@@ -15,6 +15,11 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/about", changefreq: "monthly", priority: "0.8" },
+          { path: "/rooms/deluxe", changefreq: "monthly", priority: "0.9" },
+          { path: "/rooms/premium", changefreq: "monthly", priority: "0.9" },
+          { path: "/rooms/suite", changefreq: "monthly", priority: "0.9" },
+          { path: "/rooms/standard", changefreq: "monthly", priority: "0.9" },
           { path: "/blog/things-to-do-sri-ganganagar", changefreq: "monthly", priority: "0.7" },
           { path: "/blog/heritage-and-amenities", changefreq: "monthly", priority: "0.7" },
           { path: "/blog/best-time-to-visit", changefreq: "monthly", priority: "0.7" },
