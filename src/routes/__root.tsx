@@ -83,10 +83,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "The Hari Vilas Hotels" },
+      { property: "og:title", content: "The Hari Vilas Hotels" },
+      { name: "twitter:title", content: "The Hari Vilas Hotels" },
+      { name: "description", content: "A luxury hotel website builder that designs and develops premium, 5-star hotel sites." },
+      { property: "og:description", content: "A luxury hotel website builder that designs and develops premium, 5-star hotel sites." },
+      { name: "twitter:description", content: "A luxury hotel website builder that designs and develops premium, 5-star hotel sites." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8e4874fa-b4b1-49d9-9022-99dab48a0b88/id-preview-5c27cfcb--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783840311548.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8e4874fa-b4b1-49d9-9022-99dab48a0b88/id-preview-5c27cfcb--ff09cc9c-c8b8-4efb-8089-999787815a18.lovable.app-1783840311548.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
