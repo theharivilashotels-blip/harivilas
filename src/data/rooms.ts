@@ -17,7 +17,7 @@ export const rooms: Room[] = [
   {
     slug: "deluxe",
     name: "Deluxe Room",
-    price: 1350,
+    price: 1250,
     desc: "Warm, spacious and beautifully finished. The perfect everyday luxury for solo travellers and couples.",
     longDesc:
       "Our Deluxe Room blends comfort with warm heritage details — a plush king bed, generous work desk, high-speed Wi-Fi and a spotlessly clean, air-conditioned space. Ideal for business travellers and couples looking for space, quiet and thoughtful service.",
@@ -32,7 +32,7 @@ export const rooms: Room[] = [
   {
     slug: "premium",
     name: "Standard Room",
-    price: 1550,
+    price: 1150,
     desc: "Upgraded comfort, elegant décor and thoughtful touches for a truly restful stay.",
     longDesc:
       "The Standard Room steps things up with premium bedding, elegant décor and a dedicated work desk. Enjoy complimentary breakfast, high-speed Wi-Fi and 24×7 room service in a beautifully finished, air-conditioned space.",
@@ -60,7 +60,7 @@ export const rooms: Room[] = [
   {
     slug: "standard",
     name: "Premium Room",
-    price: 1150,
+    price: 1550,
     desc: "Clean, comfortable and value-for-money. Everything you need for a great night's sleep.",
     longDesc:
       "The Premium Room is our smart, affordable choice — spotlessly clean, air-conditioned and thoughtfully equipped with a queen bed, LED TV and high-speed Wi-Fi. Everything you need for a great night's sleep at a wonderful price.",

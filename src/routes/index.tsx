@@ -76,15 +76,16 @@ function Home() {
 }
 
 function Hero({ onBook }: { onBook: () => void }) {
-  const [loaded, setLoaded] = useState(false);
   const words = ["The", "Hari", "Vilas", "Hotel"];
   return (
     <section className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-maroon-deep">
       <img
         src={HERO_IMAGE}
         alt="The Hari Vilas Hotel — luxury stay in Sri Ganganagar, Rajasthan"
-        onLoad={() => setLoaded(true)}
-        className={`hero-zoom absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1400ms] ${loaded ? "opacity-100" : "opacity-0"}`}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className="hero-zoom absolute inset-0 h-full w-full object-cover object-center"
       />
       {/* Soft dark overlay only at top and bottom for text legibility — image stays 100% opacity */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-maroon-deep/70 to-transparent" />
@@ -92,6 +93,7 @@ function Hero({ onBook }: { onBook: () => void }) {
 
       {/* Curtain reveal veil */}
       <div className="hero-veil pointer-events-none absolute inset-0 z-20 bg-maroon-deep" style={{ animationDelay: "100ms" }} />
+
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-end px-5 pb-16 text-center">
         <p className="fade-up mb-5 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-gold-soft sm:text-[11px] sm:tracking-[0.5em]" style={{ animationDelay: "1200ms" }}>
@@ -234,7 +236,8 @@ function RoomCard({ room }: { room: Room }) {
         <img
           src={room.images[0]}
           alt={`${room.name} at The Hari Vilas Hotel Sri Ganganagar`}
-          loading="lazy"
+          loading="eager"
+          decoding="async"
           className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
         />
         {room.images.length > 1 && (
