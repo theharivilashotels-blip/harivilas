@@ -17,7 +17,7 @@ export const rooms: Room[] = [
   {
     slug: "deluxe",
     name: "Deluxe Room",
-    price: 1350,
+    price: 1250,
     desc: "Warm, spacious and beautifully finished. The perfect everyday luxury for solo travellers and couples.",
     longDesc:
       "Our Deluxe Room blends comfort with warm heritage details — a plush king bed, generous work desk, high-speed Wi-Fi and a spotlessly clean, air-conditioned space. Ideal for business travellers and couples looking for space, quiet and thoughtful service.",
