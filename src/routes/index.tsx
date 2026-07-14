@@ -236,7 +236,8 @@ function RoomCard({ room }: { room: Room }) {
         <img
           src={room.images[0]}
           alt={`${room.name} at The Hari Vilas Hotel Sri Ganganagar`}
-          loading="lazy"
+          loading="eager"
+          decoding="async"
           className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
         />
         {room.images.length > 1 && (
