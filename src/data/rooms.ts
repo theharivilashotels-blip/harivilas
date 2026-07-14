@@ -60,7 +60,7 @@ export const rooms: Room[] = [
   {
     slug: "standard",
     name: "Premium Room",
-    price: 1150,
+    price: 1550,
     desc: "Clean, comfortable and value-for-money. Everything you need for a great night's sleep.",
     longDesc:
       "The Premium Room is our smart, affordable choice — spotlessly clean, air-conditioned and thoughtfully equipped with a queen bed, LED TV and high-speed Wi-Fi. Everything you need for a great night's sleep at a wonderful price.",
