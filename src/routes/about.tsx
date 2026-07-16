@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Heart, ShieldCheck, Sparkles, MapPin } from "lucide-react";
-import heroFacade from "../assets/hero-facade.png.asset.json";
+import heroFacade from "../assets/hero-facade-new.png.asset.json";
 import suite1 from "../assets/suite-1.jpg";
 
 function About() {
