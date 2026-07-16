@@ -84,7 +84,7 @@ function About() {
   );
 }
 
-const url = "https://harivilas.lovable.app/about";
+const url = "https://www.theharivilashotels.com/about";
 const title = "About Us — The Hari Vilas Hotel, Sri Ganganagar";
 const description = "Learn the story behind The Hari Vilas Hotel — a warm, couple-friendly boutique hotel in the heart of Sri Ganganagar, Rajasthan.";
 

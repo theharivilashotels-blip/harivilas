@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-const url = "https://harivilas.lovable.app/blog/best-time-to-visit";
+const url = "https://www.theharivilashotels.com/blog/best-time-to-visit";
 const title = "Best Time to Visit Sri Ganganagar | Hari Vilas Hotel";
 const description = "When is the best time to visit Sri Ganganagar? A month-by-month guide to weather, festivals and travel tips from Hari Vilas Hotel.";
 
