@@ -174,7 +174,7 @@ function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ classN
   );
 }
 
-const site = "https://harivilas.lovable.app";
+const site = "https://www.theharivilashotels.com";
 
 export const Route = createFileRoute("/rooms/$slug")({
   loader: ({ params }) => {

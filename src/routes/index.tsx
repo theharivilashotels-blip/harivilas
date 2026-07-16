@@ -521,7 +521,7 @@ function Location() {
   );
 }
 
-const canonical = "https://harivilas.lovable.app/";
+const canonical = "https://www.theharivilashotels.com/";
 const description = "Discover the best hotels in Sri Ganganagar at Hari Vilas Hotel. Enjoy luxurious rooms, complimentary breakfast, and easy access to local attractions.";
 const title = "Top Hotels in Sri Ganganagar – Hari Vilas Hotel";
 
@@ -534,11 +534,11 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
-      { property: "og:image", content: HERO_IMAGE },
+      { property: "og:image", content: `${canonical}images/hero-facade.jpg` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: HERO_IMAGE },
+      { name: "twitter:image", content: `${canonical}images/hero-facade.jpg` },
       { name: "keywords", content: "hotels in Sri Ganganagar, Hari Vilas Hotel, luxury hotel Sri Ganganagar, budget hotel Sri Ganganagar, hotel near Sri Ganganagar railway station, hotel near Fort Rajwada, couple friendly hotel Sri Ganganagar" },
     ],
     links: [{ rel: "canonical", href: canonical }],
@@ -553,7 +553,7 @@ export const Route = createFileRoute("/")({
           url: canonical,
           telephone: "+91-99506-29029",
           email: "theharivilashotel@gmail.com",
-          image: HERO_IMAGE,
+          image: `${canonical}images/hero-facade.jpg`,
           priceRange: "₹₹",
           starRating: { "@type": "Rating", ratingValue: "4.9" },
           address: {
@@ -586,7 +586,7 @@ export const Route = createFileRoute("/")({
           "@type": "LocalBusiness",
           "@id": canonical + "#business",
           name: "Hari Vilas Hotel",
-          image: HERO_IMAGE,
+          image: `${canonical}images/hero-facade.jpg`,
           telephone: "+91-99506-29029",
           email: "theharivilashotel@gmail.com",
           url: canonical,

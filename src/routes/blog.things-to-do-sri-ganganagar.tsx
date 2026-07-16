@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-const url = "https://harivilas.lovable.app/blog/things-to-do-sri-ganganagar";
+const url = "https://www.theharivilashotels.com/blog/things-to-do-sri-ganganagar";
 const title = "Top 5 Things to Do in Sri Ganganagar | Hari Vilas Hotel";
 const description = "Planning a trip? Discover the top 5 things to do in Sri Ganganagar — from Gole Bazaar and Anoopgarh to Fort Rajwada — with tips from Hari Vilas Hotel.";
 
