@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { BookingModal } from "../components/site/BookingModal";
 import suite1 from "../assets/suite-1.jpg";
-import heroFacade from "../assets/hero-facade-new.png.asset.json";
+const heroFacade = { url: "/images/hero-facade.jpg" };
 import { rooms, type Room } from "../data/rooms";
 
 const HERO_IMAGE = heroFacade.url;
